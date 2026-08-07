@@ -1,12 +1,38 @@
-# 🤖 AI Personal Assistant
+<p align="center">
+  <img src="assets/banner.svg" alt="AI Personal Assistant Banner" width="100%"/>
+</p>
 
-> A conversational AI assistant built from the ground up — covering LLM integration, prompt engineering, structured outputs, and API design. First deliverable of a 90-day AI Engineering roadmap (Phase 1: Foundation, Week 1).
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"/>
+  <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white" alt="FastAPI"/>
+  <img src="https://img.shields.io/badge/OpenAI-SDK-412991?style=flat-square&logo=openai&logoColor=white" alt="OpenAI"/>
+  <img src="https://img.shields.io/badge/Gemini-SDK-4285F4?style=flat-square&logo=google&logoColor=white" alt="Gemini"/>
+  <img src="https://img.shields.io/badge/Pydantic-Structured%20Output-E92063?style=flat-square&logo=pydantic&logoColor=white" alt="Pydantic"/>
+  <img src="https://img.shields.io/badge/License-MIT-22c55e?style=flat-square" alt="License"/>
+  <img src="https://img.shields.io/badge/Status-In%20Progress-f59e0b?style=flat-square" alt="Status"/>
+  <img src="https://img.shields.io/badge/Last%20Commit-Week%201-6366f1?style=flat-square" alt="Last Commit"/>
+</p>
 
-![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
-![OpenAI](https://img.shields.io/badge/OpenAI-SDK-412991?style=flat-square&logo=openai&logoColor=white)
-![Gemini](https://img.shields.io/badge/Gemini-SDK-4285F4?style=flat-square&logo=google&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+<p align="center">
+  A conversational AI assistant built from the ground up — covering LLM integration, prompt engineering, structured outputs, and API design.<br/>
+  First deliverable of a <b>90-day AI Engineering roadmap</b> (Phase 1: Foundation, Week 1).
+</p>
+
+---
+
+## 📑 Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Demo](#-demo)
+- [Installation](#️-installation)
+- [How to Run](#️-how-to-run)
+- [Architecture](#️-architecture)
+- [Folder Structure](#-folder-structure)
+- [Future Improvements](#-future-improvements)
+- [Roadmap Context](#-roadmap-context)
+- [Author](#-author)
+- [License](#-license)
 
 ---
 

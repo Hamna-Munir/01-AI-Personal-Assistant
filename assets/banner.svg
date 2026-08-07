@@ -1,0 +1,78 @@
+<svg width="1200" height="300" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/>
+      <stop offset="50%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#0b0f19"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="300" fill="url(#bgGrad)"/>
+  <circle cx="1000" cy="80" r="220" fill="url(#glow)"/>
+  <circle cx="150" cy="250" r="180" fill="url(#glow)"/>
+
+  <!-- grid dots -->
+  <g opacity="0.15">
+    <circle cx="60" cy="40" r="1.5" fill="#818cf8"/>
+    <circle cx="120" cy="40" r="1.5" fill="#818cf8"/>
+    <circle cx="180" cy="40" r="1.5" fill="#818cf8"/>
+    <circle cx="60" cy="80" r="1.5" fill="#818cf8"/>
+    <circle cx="120" cy="80" r="1.5" fill="#818cf8"/>
+    <circle cx="180" cy="80" r="1.5" fill="#818cf8"/>
+    <circle cx="1020" cy="220" r="1.5" fill="#a78bfa"/>
+    <circle cx="1080" cy="220" r="1.5" fill="#a78bfa"/>
+    <circle cx="1140" cy="220" r="1.5" fill="#a78bfa"/>
+    <circle cx="1020" cy="260" r="1.5" fill="#a78bfa"/>
+    <circle cx="1080" cy="260" r="1.5" fill="#a78bfa"/>
+    <circle cx="1140" cy="260" r="1.5" fill="#a78bfa"/>
+  </g>
+
+  <!-- node/network motif -->
+  <g opacity="0.35" stroke="#818cf8" stroke-width="1.2" fill="none">
+    <path d="M 880 60 L 940 100 L 900 150 L 960 190"/>
+    <circle cx="880" cy="60" r="4" fill="#818cf8"/>
+    <circle cx="940" cy="100" r="4" fill="#a78bfa"/>
+    <circle cx="900" cy="150" r="4" fill="#818cf8"/>
+    <circle cx="960" cy="190" r="4" fill="#a78bfa"/>
+  </g>
+
+  <!-- accent line under title -->
+  <rect x="60" y="176" width="220" height="4" rx="2" fill="url(#accentGrad)"/>
+
+  <!-- Icon: chat bubble / assistant mark -->
+  <g transform="translate(60, 70)">
+    <rect x="0" y="0" width="56" height="56" rx="14" fill="url(#accentGrad)" opacity="0.15"/>
+    <rect x="0" y="0" width="56" height="56" rx="14" fill="none" stroke="url(#accentGrad)" stroke-width="1.5"/>
+    <path d="M14 20 h28 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-14 l-8 7 v-7 h-6 a4 4 0 0 1 -4 -4 v-10 a4 4 0 0 1 4 -4 z" fill="#a78bfa"/>
+    <circle cx="22" cy="29" r="1.8" fill="#0b0f19"/>
+    <circle cx="28" cy="29" r="1.8" fill="#0b0f19"/>
+    <circle cx="34" cy="29" r="1.8" fill="#0b0f19"/>
+  </g>
+
+  <text x="140" y="105" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="700" fill="#f8fafc">AI Personal Assistant</text>
+  <text x="60" y="150" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#94a3b8">Phase 1 · Week 1 — 90-Day AI Engineering Roadmap</text>
+
+  <text x="60" y="215" font-family="Consolas, monospace" font-size="14" fill="#818cf8">Python</text>
+  <text x="150" y="215" font-family="Consolas, monospace" font-size="14" fill="#6b7280">•</text>
+  <text x="170" y="215" font-family="Consolas, monospace" font-size="14" fill="#a78bfa">FastAPI</text>
+  <text x="260" y="215" font-family="Consolas, monospace" font-size="14" fill="#6b7280">•</text>
+  <text x="280" y="215" font-family="Consolas, monospace" font-size="14" fill="#818cf8">OpenAI SDK</text>
+  <text x="400" y="215" font-family="Consolas, monospace" font-size="14" fill="#6b7280">•</text>
+  <text x="420" y="215" font-family="Consolas, monospace" font-size="14" fill="#a78bfa">Gemini SDK</text>
+
+  <rect x="0" y="292" width="1200" height="2" fill="url(#lineGrad)"/>
+</svg>

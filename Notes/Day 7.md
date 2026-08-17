@@ -1,142 +1,127 @@
-# Day 1 — AI Fundamentals & Environment Setup
+# Day 7 — Finalization & Deployment
 
-**Objective:** Understand how an LLM works and make your first API call.
+**Objective:** Ship Version 1.0.
 
 ---
 
 ## 📖 Theory
 
-### AI vs Machine Learning vs Deep Learning
+### README
 
-These three terms get used interchangeably, but they're nested inside each other, like Russian dolls.
+A `README.md` is the front door of your repository — it's the first (and often only) thing a recruiter, teammate, or future-you reads before deciding whether the project is worth a second look. A strong README answers, in order: *what is this, why does it exist, how do I run it, what does it look like.*
 
-- **Artificial Intelligence (AI)** — the broadest term. Any technique that makes a machine act "smart" — even a simple set of `if/else` rules counts as AI (a chess program from the 1980s is AI).
-- **Machine Learning (ML)** — a *subset* of AI where the system learns patterns from data instead of being explicitly programmed with rules. Example: a spam filter that learns from thousands of labeled emails what "spam" looks like.
-- **Deep Learning (DL)** — a *subset* of ML that uses neural networks with many layers ("deep" = many layers). This is what powers image recognition, speech recognition, and large language models.
+A solid structure to follow:
 
 ```
-AI  ⊃  Machine Learning  ⊃  Deep Learning
+# Project Title
+One-line description of what it does and who it's for.
+
+## Features
+- Bullet list of what the assistant can do (modes, structured output, memory, etc.)
+
+## Demo / Screenshot
+An image or GIF is worth a thousand words of description.
+
+## Tech Stack
+Python · Streamlit · Groq API · python-dotenv
+
+## Setup
+Step-by-step: clone, venv, install, .env, run.
+
+## Usage
+How to actually interact with it once it's running.
+
+## Project Structure
+A short tree of the important files/folders.
+
+## What I Learned
+A few sentences on the specific skills this project proved.
 ```
 
-So: every LLM is deep learning, every deep learning system is machine learning, every machine learning system is AI — but not the other way around.
+Keep it scannable — short paragraphs, code blocks for anything runnable, and a screenshot near the top. Nobody reads a wall of text before they've seen what the thing does.
 
-### What is Generative AI?
+### GitHub Portfolio
 
-Generative AI is a category of AI models that **create new content** (text, images, audio, code) rather than just classifying or predicting a number. A model that labels an email "spam/not spam" is *not* generative. A model that writes a new email from scratch *is* generative. ChatGPT, Midjourney, and GitHub Copilot are all generative AI.
+Your GitHub profile is a portfolio whether you curate it or not — so curate it. A few habits that make a repository look "finished" rather than abandoned mid-tutorial:
 
-### What is an LLM?
+- **Meaningful commit history.** A trail of `wip`, `fix`, `asdf` commits signals an unfinished experiment. A clean history of scoped commits (`Add structured output mode`, `Fix memory reset bug`) signals a maintained project.
+- **A pinned repo + updated profile README.** GitHub lets you pin your best repos and write a profile-level `README.md` that shows on your profile page — use both.
+- **No secrets committed.** A `.env` file, an API key, or a `venv/` folder in your commit history is an instant red flag to anyone reviewing your code. `.gitignore` should already be excluding these (see Day 6 checklist) — Day 7 is your last chance to verify with `git status` before it goes public.
+- **License + short description.** Even a one-line repo description and an MIT license make a repo look intentional rather than incidental.
 
-LLM = **Large Language Model**. It's a deep learning model trained on huge amounts of text to predict "what word comes next" given the words before it. That simple next-word-prediction task, done at massive scale, is enough to make the model capable of conversation, summarization, coding, translation, and more.
+### Deployment Basics
 
-Key idea: an LLM doesn't "know" facts the way a database does — it generates the statistically most likely continuation of text based on patterns seen during training. That's why LLMs can sound confident while being wrong (this is called "hallucination").
+"Deployment" just means moving your app from *running on your machine* to *running somewhere anyone with a link can reach*. For a Streamlit app, the simplest path is **Streamlit Community Cloud**, which is free and built specifically for this:
 
-### ChatGPT vs API — what's the difference?
+1. Push your project to a **public GitHub repository** (private repos need a paid plan on some platforms).
+2. Go to [share.streamlit.io](https://share.streamlit.io) and connect your GitHub account.
+3. Point it at your repo, branch, and the entry file (`app.py`).
+4. Add your secrets — this is the part people get wrong. Your `.env` file **never** gets pushed to GitHub, so the deployed app has no idea what your API key is until you tell the platform directly. On Streamlit Cloud this lives under **App settings → Secrets**, where you paste the same key="value" pairs your `.env` has locally.
+5. Deploy. The platform installs everything from `requirements.txt` and starts your app — if a package is missing from that file, deployment will fail even though it worked locally (see Common Errors below).
 
-- **ChatGPT** is a *product* — a chat website/app built on top of an LLM, with a UI, memory, and safety layers already wired up for you.
-- **The API** is the *raw model access* — you send it text, it sends text back, and you build whatever interface you want around it (a CLI, a web app, a Slack bot, etc.).
-
-Think of it like: ChatGPT is a restaurant meal, the API is the raw ingredients you cook with yourself. Today, you're using the ingredients.
-
-### What is an API?
-
-**API = Application Programming Interface.** It's a defined way for your code to talk to someone else's service over the internet. You send a request (with your question and settings), their server processes it, and sends back a response — usually as JSON.
-
-You don't need to know *how* the LLM works internally to use its API — you just need to know the "contract": what to send, what you'll get back.
-
-### What is an SDK?
-
-**SDK = Software Development Kit.** It's a package (library) that wraps the raw API calls in convenient functions, so you don't have to manually build HTTP requests yourself. For example, instead of writing raw HTTP code, you write:
-
-```python
-from openai import OpenAI
-client = OpenAI()
-response = client.chat.completions.create(...)
-```
-
-The SDK handles the HTTP request, authentication headers, and response parsing for you.
-
-### API Key
-
-An **API key** is a secret string that identifies *you* (or your app) to the provider, so they know who to bill and can enforce rate limits. It's like a password — anyone who has your key can use your account and run up your bill. That's why it's **never** hardcoded in source code or committed to GitHub — it lives in a `.env` file that stays on your machine only (see the Coding Exercise below).
-
-### Client–Server Basics
-
-- **Client** — the program that *sends* a request (your Python script).
-- **Server** — the program that *receives* the request, processes it, and sends back a response (OpenAI's servers, in this case).
-
-Every API call today follows this pattern:
-
-```
-Your script (client)  ──request (your prompt)──▶  OpenAI server
-Your script (client)  ◀──response (AI's reply)───  OpenAI server
-```
+The core idea that trips people up: **your local `.env` and the platform's "Secrets" are two separate, disconnected places.** Updating one does nothing to the other.
 
 ---
 
 ## 🎥 Best Resource
 
-freeCodeCamp – OpenAI API Crash Course (search for the latest available version on YouTube)
+Streamlit deployment tutorial (or chosen deployment platform)
 
 ## 📚 Reading
 
-[OpenAI API Quickstart](https://platform.openai.com/docs/quickstart) (official docs)
+[GitHub README guide](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
 
 ---
 
 ## 💻 Coding Exercise
 
-1. **Create the project folder** (already done if you're using this repo structure).
-2. **Create a virtual environment:**
-   ```bash
-   python -m venv venv
-   venv\Scripts\activate      # Windows
-   # source venv/bin/activate # macOS/Linux
-   ```
-3. **Install the SDK:**
-   ```bash
-   pip install openai python-dotenv
-   ```
-4. **Connect the API** — copy `.env.example` to `.env` and paste your real API key into it.
-5. **Print your first AI response** — fill in the `TODO(Day 1)` sections in `src/assistant.py`, then run:
-   ```bash
-   python main.py
-   ```
+Deploy the assistant.
+
+1. **Finalize `requirements.txt`** — make sure every package your app imports is listed with a pinned or minimum version.
+2. **Write the README** — using the structure above, document what the assistant does and how to run it.
+3. **Double-check `.gitignore`** — confirm `.env` and `venv/` are excluded (`git status` should show neither as trackable).
+4. **Push to GitHub** — commit everything, push to a public repo.
+5. **Deploy** — connect the repo on Streamlit Community Cloud (or your chosen platform), add `GROQ_API_KEY` as a Secret, and deploy.
+6. **Test the live link** — open the deployed URL in a fresh/incognito browser tab and run through every mode to confirm it behaves exactly like it did locally.
 
 ---
 
 ## 🛠️ Today's Feature
 
-The assistant replies to one question, end to end: you type a question in the terminal, it's sent to the API, and the reply is printed back.
+Live AI Personal Assistant.
 
 ---
 
 ## 🧠 Quiz
 
-1. What's the difference between AI, Machine Learning, and Deep Learning?
-2. What makes a model "generative" instead of just predictive?
-3. What does an LLM actually predict, one step at a time?
-4. Why is ChatGPT not the same thing as "the OpenAI API"?
-5. Why should an API key never be committed to GitHub?
+Review of the week.
 
-*(Answers are in the theory section above — try answering from memory first, then check.)*
+1. What's the difference between AI, ML, and Deep Learning? (Day 1)
+2. What's the difference between a chat mode and structured output? (Day 3–4)
+3. How does the assistant "remember" earlier turns in a conversation? (Day 5)
+4. Why do we wrap API calls in `try/except` instead of letting errors crash the app? (Day 6)
+5. Why does deploying an app require setting Secrets separately from your local `.env`?
+
+*(Answers are drawn from each day's theory section — try answering from memory first, then check back.)*
 
 ## ⭐ Bonus
 
-Try asking the assistant 3 different types of questions (a factual question, a creative request, and a coding question) and compare the responses.
+Record a demo video.
 
 ## 🐞 Common Errors
 
 | Error | Likely Cause | Fix |
 |---|---|---|
-| `Invalid API key` | Wrong key copied, or key has extra spaces | Re-copy the key from your provider's dashboard exactly |
-| `.env` not loading | `load_dotenv()` not called, or `.env` in wrong folder | Make sure `.env` is in the project root and `python-dotenv` is installed |
-| Wrong Python interpreter | venv not activated | Confirm with `where python` (Windows) that it points inside `venv\Scripts\` |
+| Missing dependencies | A package works locally (already installed in your venv) but isn't listed in `requirements.txt` | Run `pip freeze > requirements.txt` from an activated, clean venv before pushing |
+| Environment variables on deployment | The app works locally but crashes on the deployed link with an auth/key error | Add the same key="value" pairs from your `.env` into the platform's "Secrets" settings — local `.env` files are never uploaded |
+| App builds but shows a blank/error page | Wrong entry-point file specified, or an import path assumes a local folder structure that isn't present after deployment | Confirm the entry file is `app.py` and all imports use relative paths from the repo root |
+| Works locally, breaks after deploy for no obvious reason | Python version mismatch between your machine and the deployment platform | Pin a `python_version` (e.g. in `runtime.txt` or platform settings) to match what you tested locally |
 
 ## ✅ Checklist
 
-- [ ] Environment ready (venv created & activated)
-- [ ] SDK installed
-- [ ] `.env` created with a real API key
-- [ ] API call working
-- [ ] First response received and printed
-- [ ] Git commit made
+- [ ] README complete
+- [ ] Screenshots added
+- [ ] Notes complete
+- [ ] Week summary complete
+- [ ] Deployment successful
+- [ ] GitHub updated
